@@ -1,15 +1,16 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 function Tarefas() {
     //valor     /     função    /   se usa '[]' dentro de '()' para 
     //dizer que 'listaTarefas' tem uma lista vazia como valor inicial
     const [listaTarefas, setListaTarefas] = useState([]);
+    const descricaoTarefaInputRef = useRef();
 
     function adicionaTarefa() {
-
+        console.log(descricaoTarefaInputRef.current.value);
         listaTarefas.push(
             {
-                descricao: "Tarefa",
+                descricao: descricaoTarefaInputRef.current.value,
                 finalizado: false
             }
         );
@@ -18,7 +19,7 @@ function Tarefas() {
         //retorna a lista inteira
         setListaTarefas(listaTarefas.slice());
 
-        console.log("Tarefas:", listaTarefas);
+        // console.log("Tarefas:", listaTarefas);
         console.log("Cadastrado");
     }
 
@@ -38,6 +39,7 @@ function Tarefas() {
 
     return (
         <>
+        <input type="text"ref={descricaoTarefaInputRef}/>
             <div>
                 <button onClick={adicionaTarefa}>Cadastrar</button>
                 <br />
