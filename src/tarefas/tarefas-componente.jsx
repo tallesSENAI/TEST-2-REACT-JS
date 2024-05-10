@@ -18,6 +18,7 @@ function Tarefas() {
         //retorna uma cópia do elemento do começo até o final da lista
         //retorna a lista inteira
         setListaTarefas(listaTarefas.slice());
+        localStorageCadastro();
 
         // console.log("Tarefas:", listaTarefas);
         console.log("Cadastrado");
@@ -37,9 +38,17 @@ function Tarefas() {
         return 'none';
     }
 
+    function localStorageCadastro(){
+        localStorage.setItem("tarefa", JSON.stringify(listaTarefas)); //localStorage aceita apenas TEXTOS
+    }
+
+    function buscaTarefas(){
+        JSON.parse(localStorage.getItem("tarefa"));
+    }
+
     return (
         <>
-        <input type="text"ref={descricaoTarefaInputRef}/>
+        <input placeholder="Digite a tarefa" type="text" ref={descricaoTarefaInputRef}/>
             <div>
                 <button onClick={adicionaTarefa}>Cadastrar</button>
                 <br />
@@ -47,7 +56,7 @@ function Tarefas() {
                 <div>
                     {
                         //"map" pega a lista de texto criada na linha 9
-                        //e transforma em uma lista de elementos <h2></h2 > 
+                        //e transforma em uma lista de elementos <div></div > 
                         listaTarefas.map(TarefaAtual => {
                             return <div style={
                                 {
@@ -64,7 +73,5 @@ function Tarefas() {
             </div>
         </>
     );
-
-
 }
 export default Tarefas;
